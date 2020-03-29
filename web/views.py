@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import string
-from random import random
+
 import requests
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
@@ -49,7 +48,7 @@ def register(request):
             context = {'message': 'کپچای گوگل درست وارد نشده بود. شاید ربات هستید؟ کد یا کلیک یا تشخیص عکس زیر فرم را درست پر کنید. ببخشید که فرم به شکل اولیه برنگشته!'} #TODO: forgot password
             return render(request, 'register.html', context)
 
-        if User.objects.filter(email = request.POST['email']).exists(): # duplicate email
+        if User.objects.filter(email=request.POST['email']).exists(): # duplicate email
             context = {'message': 'متاسفانه این ایمیل قبلا استفاده شده است. در صورتی که این ایمیل شما است، از صفحه ورود گزینه فراموشی پسورد رو انتخاب کنین. ببخشید که فرم ذخیره نشده. درست می شه'} #TODO: forgot password
             #TODO: keep the form data
             return render(request, 'register.html', context)
@@ -93,12 +92,9 @@ def register(request):
         context = {'message': ''}
         return render(request, 'register.html', context)
 
-
-
-
-
-
-
+def index(request):
+    context = {}
+    return render(request, 'index.html', context)
 
 
 @csrf_exempt
