@@ -63,9 +63,9 @@ def register(request):
                 temporarycode.save()
                 message = PMMail(api_key = settings.POSTMARK_API_TOKEN,
                                  subject = "فعال سازی اکانت دنگی منگی",
-                                 sender = "jadi@jadi.net",
+                                 sender = "sohrabi.sepehr@yahoo.com",
                                  to = email,
-                                 text_body = "برای فعال سازی اکانت دنگی منگی خود روی لینک روبرو کلیک کنید: http://dongimongi.ir/accounts/register/?email={}&code={}".format(email, code),
+                                 text_body="برای فعالسازی اکانت دنگی منگی خود روی لینک روبرو کلیک کنید: {}?email={}&code={}".format(request.build_absolute_uri('/accounts/register/'), email, code),
                                  tag = "account request")
                 message.send()
                 context = {'message': 'ایمیلی حاوی لینک فعال سازی اکانت به شما فرستاده شده، لطفا پس از چک کردن ایمیل، روی لینک کلیک کنید.'}
