@@ -18,17 +18,21 @@ class Token(models.Model):
         return "{}_token".format(self.user)
 
 
+class Person(models.Model):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+
 class Expense(models.Model):
     text = models.CharField(max_length=255)
     date = models.DateTimeField()
     amount = models.BigIntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ManyToManyField(Person, related_name='person2person')
     number = models.IntegerField(null=True)
     def __str__(self):
-        return "{}-{}".format(self.date, self.amount)
+        return "{}-{}-{}".format(self.date, self.user, self.amount)
 
-class Person(models.Model):
-    name = models.CharField(max_length=255)
-    sahm = models.IntegerField()
-    def __str__(self):
-        return "{}-{}".format(self.name, self.sahm)
+class MadarKharj(models.Model):
+    madarrrrr = models.OneToOneField(Person, related_name='Madar_Kharj', on_delete=models.CASCADE)
+    kharj = models.OneToOneField(Expense, related_name='Kharj', on_delete=models.CASCADE)
