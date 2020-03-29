@@ -36,3 +36,5 @@ class Expense(models.Model):
 class MadarKharj(models.Model):
     madarrrrr = models.OneToOneField(Person, related_name='Madar_Kharj', on_delete=models.CASCADE)
     kharj = models.OneToOneField(Expense, related_name='Kharj', on_delete=models.CASCADE)
+
+

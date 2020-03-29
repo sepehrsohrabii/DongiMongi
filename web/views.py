@@ -12,7 +12,7 @@ from datetime import datetime
 from postmark import PMMail
 import secrets
 
-random_str = secrets.token_hex()
+##random_str = secrets.token_hex()
 
 
 
@@ -53,22 +53,22 @@ def register(request):
             #TODO: keep the form data
             return render(request, 'register.html', context)
 
-        if not User.objects.filter(username = request.POST['username']).exists(): #if user does not exists
+        if not User.objects.filter(username=request.POST['username']).exists(): #if user does not exists
                 code = secrets.token_hex(28)
                 now = datetime.now()
                 email = request.POST['email']
                 password = make_password(request.POST['password'])
                 username = request.POST['username']
-                temporarycode = Passwordresetcodes (email = email, time = now, code = code, username=username, password=password)
+                temporarycode = Passwordresetcodes(email=email, time=now, code=code, username=username, password=password)
                 temporarycode.save()
-                message = PMMail(api_key = settings.POSTMARK_API_TOKEN,
-                                 subject = "فعال سازی اکانت دنگی منگی",
-                                 sender = "sohrabi.sepehr@yahoo.com",
-                                 to = email,
-                                 text_body="برای فعالسازی اکانت دنگی منگی خود روی لینک روبرو کلیک کنید: {}?email={}&code={}".format(request.build_absolute_uri('/accounts/register/'), email, code),
-                                 tag = "account request")
-                message.send()
-                context = {'message': 'ایمیلی حاوی لینک فعال سازی اکانت به شما فرستاده شده، لطفا پس از چک کردن ایمیل، روی لینک کلیک کنید.'}
+#                message = PMMail(api_key = settings.POSTMARK_API_TOKEN,
+#                                 subject = "فعال سازی اکانت دنگی منگی",
+#                                 sender = "sohrabi.sepehr@yahoo.com",
+#                                 to = email,
+#                                 text_body="برای فعالسازی اکانت دنگی منگی خود روی لینک روبرو کلیک کنید: {}?email={}&code={}".format(request.build_absolute_uri('/accounts/register/'), email, code),
+#                                 tag = "account request")
+#                message.send()
+                context = {'message': "{}?email={}&code={}".format(request.build_absolute_uri('/accounts/register/'), email, code)}
                 return render(request, 'login.html', context)
         else:
             context = {'message': 'متاسفانه این نام کاربری قبلا استفاده شده است. از نام کاربری دیگری استفاده کنید. ببخشید که فرم ذخیره نشده. درست می شه'} #TODO: forgot password
@@ -80,7 +80,7 @@ def register(request):
         if Passwordresetcodes.objects.filter(code=code).exists(): #if code is in temporary db, read the data and create the user
             new_temp_user = Passwordresetcodes.objects.get(code=code)
             newuser = User.objects.create(username=new_temp_user.username, password=new_temp_user.password, email=email)
-            this_token = random_str(48)
+            this_token = secrets.token_hex(48)
             token = Token.objects.create(user=newuser, token=this_token)
             Passwordresetcodes.objects.filter(code=code).delete() #delete the temporary activation code from db
             context = {'message': 'اکانت شما ساخته شد. توکن شما {} است. آن را ذخیره کنید چون دیگر نمای داده نخواهد شد!'.format(this_token)}
@@ -102,10 +102,9 @@ def submit_person(request):
     """user submit an person"""
 
     this_name = request.POST['name']
-    this_sahm = request.POST['sahm']
 
 
-    Person.objects.create(name=this_name, sahm=this_sahm)
+    Person.objects.create(name=this_name)
 
     return JsonResponse({
         'status': 'ok'
