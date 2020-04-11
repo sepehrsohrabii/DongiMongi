@@ -1,0 +1,33 @@
+{% extends "template.html"%}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+
+
+
+<p>
+    سلام، خیلی خوش اومدین.
+</p>
+<p>
+    تو این صفحه اسم خودتون و افرادی که تو خرجاتون بودن رو وارد کنین.
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="text">نام: </label><br>
+    <input type="text" id="text" value="{{ name }}" name="name"><br>
+    <input type="submit" value="فقط بریم صفحه خرجا" name="cancel"><br>
+    <input type="submit" value="اینو ذخیره کن بریم سراغ خرجا" name="save"><br>
+    <input type="submit" value="اینو داشته باش بازم هست" name="another"><br>
+</form>
+
+        
+
+
+
+</div>
+</div>
+
+{% endblock %}

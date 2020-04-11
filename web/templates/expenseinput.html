@@ -1,0 +1,39 @@
+{% extends "template.html"%}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+
+
+
+<p>
+تو این صفحه خرجاتون رو وارد کنین.
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="text">اسم خرجتون: </label><br>
+    <input type="text" id="text" value="{{ text }}" name="text"><br>
+    <label for="amount">مبلغش: </label><br>
+    <input type="number" id="amount" value="{{ amount }}" name="amount"><br>
+    <label for="member">کیا باید دنگ بدن؟ </label><br>
+    {% for obj in object_list %}
+        <input type="checkbox" name="member" id="member" value="{{ obj.name }}">    {{ obj.name }}<br>
+    {% endfor %}
+    <label for="manager">مادر خرجتون کی بود؟! </label><br>
+    {% for obj in object_list %}
+        <input type="radio" name="manager" id="manager" value="{{ obj.name }}">    {{ obj.name }}<br>
+    {% endfor %}
+    <input type="submit" value="لغو" name="cancel"><br>
+    <input type="submit" value="تموم" name="save"><br>
+    <input type="submit" value="یه خرج دیگه مونده!" name="another"><br>
+</form>
+        
+
+
+
+</div>
+</div>
+
+{% endblock %}
