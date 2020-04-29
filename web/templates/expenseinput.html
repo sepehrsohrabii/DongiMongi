@@ -2,9 +2,50 @@
 {% load static %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-12">
+<style>
+    .button1 {
+    background-color: #e74c3c;
+    border: 2px solid #e74c3c;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 200px;
+    height: 40px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    }
+    .button1:hover {
+    background-color: #eeeeee;
+    color:black;
+    }
 
+    .button2 {
+    background-color: #eeeeee;
+    border: 2px solid #393e46;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 200px;
+    height: 40px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    }
+    .button2:hover {
+    background-color: #393e46;
+    color:white;
+    }
+</style>
 
 
 <p>
@@ -13,27 +54,37 @@
 
 <form method="POST">
     {% csrf_token %}
-    <label for="text">اسم خرجتون: </label><br>
-    <input type="text" id="text" value="{{ text }}" name="text"><br>
-    <label for="amount">مبلغش: </label><br>
-    <input type="number" id="amount" value="{{ amount }}" name="amount"><br>
+
+    <div style="border-bottom: 2px solid #222831 ; margin-top:20px ; margin-bottom:20px ; font-size:20px ;">
+        <b style="margin-right:10px">خرج ها</b>
+    </div>
+
+    <label for="text">اسم خرجتون: </label>
+    <input type="text" id="text" value="{{ text }}" name="text" class="form-control" placeholder="   یه اسم واسه خرجتون بذارین..."
+           style="width: 300px; align-text:right ; height: 40px ; font-size:11px ; display:inline-block;
+           margin-bottom: 15px ; margin-right:10px ; border-radius:4px ; "><br>
+
+    <label for="amount">مبلغش: </label>
+    <input type="number" id="amount" value="{{ amount }}" name="amount" class="form-control" placeholder="   مبلغش چقدر بود؟"
+           style="width: 300px; align-text:right ; height: 40px ; font-size:11px ; display:inline-block;
+           margin-bottom: 25px ; margin-right:50px ; border-radius:4px ; "><br>
+
     <label for="member">کیا باید دنگ بدن؟ </label><br>
+    <div style="margin-bottom:20px">
     {% for obj in object_list %}
-        <input type="checkbox" name="member" id="member" value="{{ obj.name }}">    {{ obj.name }}<br>
+        <input type="checkbox" name="member" id="member" value="{{ obj.name }}" style="margin-right:100px">    {{ obj.name }}<br>
     {% endfor %}
+    </div>
+
     <label for="manager">مادر خرجتون کی بود؟! </label><br>
+    <div style="margin-bottom:20px">
     {% for obj in object_list %}
-        <input type="radio" name="manager" id="manager" value="{{ obj.name }}">    {{ obj.name }}<br>
+        <input type="radio" name="manager" id="manager" value="{{ obj.name }}" style="margin-right:100px">    {{ obj.name }}<br>
     {% endfor %}
-    <input type="submit" value="لغو" name="cancel"><br>
-    <input type="submit" value="تموم" name="save"><br>
-    <input type="submit" value="یه خرج دیگه مونده!" name="another"><br>
+    </div>
+    <input type="submit" class="button1" value="+ ذخیره" name="save"><br>
+    <input type="submit" class="button2" value="نتایج" name="cancel"><br>
+
 </form>
-        
-
-
-
-</div>
-</div>
 
 {% endblock %}

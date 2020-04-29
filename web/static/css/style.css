@@ -27,7 +27,7 @@ h1, h2, h3, h4,h5, h6 {
 
 
 .navbar-nav {
-  float: right;
+  float: center;
 }
 
 .topleftlogo {
@@ -99,6 +99,7 @@ body {
     }
 
     .navbar-fixed-top .navbar-brand {
+        text-align: center;
         padding: 15px 0;
     }
 }

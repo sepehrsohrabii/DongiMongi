@@ -3,58 +3,68 @@
 
 {% block content %}
 
+<style>
+    .navbar-header{ display: none;}
+    .footer{ display: none; }
+    .button1 {
+    background-color: #e74c3c;
+    border: 2px solid #e74c3c;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    width: 200px;
+    height: 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    }
+    .button1:hover {
+    background-color: #ecf0f1;
+    color:black;
+    }
+    .button2 {
+    background-color: none;
+    border: 2px solid #00adb5;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    width: 200px;
+    height: 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    }
+    .button2:hover {
+    background-color: #00adb5;
+    color:white;
+    }
+</style>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="alert alert-info" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <a href="">
-          اپلیکیشن دنگی منگی در حال ساخت است.
-      </a>
-    </div>
-  </div>
+<div style="font-size: 80px; text-align: center; padding: 10px">
+    <b>دُنگی مُنگی</b>
+</div>
+<div style="font-size: 15px; text-align: center; padding-bottom: 50px">
+    |دنگ منگاتونو بدین من جابجا میکنم.|
+</div>
+<div style="font-size: 10px; text-align: center; padding: 2px">
+    <button class="button1" onclick="window.location.href='/accounts/register/'">ساخت اکانت</button>
+</div>
+<div style="font-size: 10px; text-align: center;">
+    <button class="button2" onclick="window.location.href='/accounts/login/'">ورود</button>
 </div>
 
 
-  {% if message %}
-  <div class="bs-callout bs-callout-info">
-    <h5>{{ message }}</h5>
-  </div>
-  {% endif %}
-
-
-<div class="row">
-
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">دنگی منگی</h3>
-        </div>
-        <div class="panel-body">
-
-
-<p>
-    {{context}}
-</p>
-<p>
-    دنگی منگی یک پروژه ی تمرینی است که سعی میکنه همیشه دنگاتونو مدیریت کنه.
-</p>
-<p>
-    برای ساخت اکانت
-    <a href=/accounts/register/>به صفحه ی رجیستر برین</a>
-    وبرای اطلاعات بیشتر به
-    <a href="https://github.com/Sepehr1997/dongimongi.git/">صفحه ی گیت هاب پروژه</a>
-    مراجعه کنید.
-</p>
-        </div>
-      </div>
-<br /><br />
-</div>
-</div>
 {% endblock %}
 
 
 {% block footer %}
+
 
 <script >
 $(document).ready(function () {

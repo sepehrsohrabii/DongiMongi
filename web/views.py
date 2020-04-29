@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Token, Expense, Person, Passwordresetcodes, Membership, Manager
 from datetime import datetime
 from django.template.response import TemplateResponse
+from django.http import HttpResponse
 import secrets
 from django.core.mail import send_mail
 
@@ -113,24 +114,22 @@ def login(request):
 
 @csrf_exempt
 def personinput(request):
+    this_user = User.objects.filter(token__token=token).get()
+    person = Person.objects.filter(user=this_user)
+    cont = {
+        "object_list": person
+    }
     if 'cancel' in request.POST:
         return redirect('/input/expense/')
 
     elif 'save' in request.POST:
-        this_user = User.objects.filter(token__token=token).get()
-        this_name = request.POST['name']
-        this_money = request.POST['money']
-        Person.objects.create(user=this_user, name=this_name, money=this_money)
-        return redirect('/input/expense/')
+        if request.POST['name']:
+            this_user = User.objects.filter(token__token=token).get()
+            this_name = request.POST['name']
+            Person.objects.create(user=this_user, name=this_name)
+        return render(request, 'personinput.html', cont)
 
-    elif 'another' in request.POST:
-        this_user = User.objects.filter(token__token=token).get()
-        this_name = request.POST['name']
-        this_money = request.POST['money']
-        Person.objects.create(user=this_user, name=this_name, money=this_money)
-        return render(request, 'personinput.html')
-
-    return render(request, 'personinput.html')
+    return render(request, 'personinput.html', cont)
 
 
 
@@ -147,23 +146,8 @@ def expenseinput(request):
 
     if "cancel" in request.POST:
         return redirect('/q/generalstat/')
-    elif "save" in request.POST:
-        this_expense = Expense.objects.create(user=this_user, amount=request.POST['amount'],
-                                              text=request.POST['text'], date=date)
-        member = request.POST.getlist('member')
-        manager = request.POST.getlist('manager')
-        n = 0
-        m = len(member) - 1
-        for person.name in person:
-            this_person = person.name
-            if (n <= m) and (member[n] == str(this_person)):
-                n = n + 1
-                Membership.objects.create(person=this_person, expense=this_expense)
-            if manager[0] == str(this_person):
-                Manager.objects.create(manager=this_person, managed_expense=this_expense)
-        return redirect('/q/generalstat/')
 
-    elif "another" in request.POST:
+    elif "save" in request.POST:
         this_expense = Expense.objects.create(user=this_user, amount=request.POST['amount'],
                                               text=request.POST['text'], date=date)
         member = request.POST.getlist('member')

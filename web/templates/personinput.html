@@ -2,32 +2,81 @@
 {% load static %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-12">
+<style>
+    .button1 {
+    background-color: #00adb5;
+    border: 2px solid #00adb5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 100px;
+    height: 40px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    }
+    .button1:hover {
+    background-color: #eeeeee;
+    color:black;
+    }
 
-
+    .button2 {
+    background-color: #eeeeee;
+    border: 2px solid #393e46;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 200px;
+    height: 40px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    }
+    .button2:hover {
+    background-color: #393e46;
+    color:white;
+    }
+</style>
 
 <p>
     سلام، خیلی خوش اومدین.
 </p>
 <p>
-    تو این صفحه اسم خودتون و افرادی که تو خرجاتون بودن رو وارد کنین.
+    تو این صفحه اسم افرادی که تو خرجا بودن رو دونه دونه وارد و ذخیره کنین.
 </p>
 
 <form method="POST">
     {% csrf_token %}
-    <label for="text">نام: </label><br>
-    <input type="text" id="text" value="{{ name }}" name="name"><br>
-    <input type="submit" value="فقط بریم صفحه خرجا" name="cancel"><br>
-    <input type="submit" value="اینو ذخیره کن بریم سراغ خرجا" name="save"><br>
-    <input type="submit" value="اینو داشته باش بازم هست" name="another"><br>
+
+    <div style="border-bottom: 2px solid #222831 ; margin-top:20px ; margin-bottom:20px ; font-size:20px ;">
+        <b style="margin-right:10px">افراد</b>
+    </div>
+
+    <label for="text">نام: </label>
+    <input type="text" id="text" value="{{ name }}" name="name" class="form-control" placeholder="   اسم رو اینجا وارد کنین..."
+           style="width: 40%; align-text:right ; height: 40px ; font-size:11px ; display:inline-block;
+           margin-bottom: 15px ; margin-right:10px ; border-radius:4px ; ">
+    <input type="submit" class="button1" value="+ ذخیره" name="save"><br>
+
+    <ul id="names" style="text-align:right ; margin-top: 0px ; font-size:14px ; margin-bottom:0px ; margin-right:15px ;">
+        {% for obj in object_list %}
+        <li><div value="{{ obj.name }}" >    {{ obj.name }}</div></li>
+        {% endfor %}
+    </ul><br>
+
+    <input type="submit" class="button2" value="خرج ها" name="cancel">
+    <span style="font-size:11px ; margin-right: 5px;">
+        برای وارد کردن خرج ها روی این کلیک کنید.
+    </span>
 </form>
-
-        
-
-
-
-</div>
-</div>
 
 {% endblock %}
