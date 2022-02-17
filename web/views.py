@@ -7,7 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Token, Expense, Person, Passwordresetcodes, Membership, Manager
 from datetime import datetime
 from django.template.response import TemplateResponse
-from django.http import HttpResponse
 import secrets
 from django.core.mail import send_mail
 
