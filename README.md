@@ -11,6 +11,7 @@ Everyone's share of each expense is calculated.
 - Captcha
 - Send activation account link to user email.
 - Persian
+- Screenshots available
 
 
 <b>Steps before run project:</b></br>
